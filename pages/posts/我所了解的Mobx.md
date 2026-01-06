@@ -1,0 +1,168 @@
+---
+title: 我所了解的Mobx
+description: 聊聊工作中用到的Mobx
+date: 2018-06-10
+lang: zh
+duration: 5min
+subtitle: 'Author: Kele'
+---
+
+[[toc]]
+
+Mobx 是一个简单、可扩展的状态管理工具。相比 redux，mobx可以使用更自由，更少的代码来管理状态。
+
+## mobx中核心概念
+
+### 1、可观察的状态 observable
+
+MobX 通过使用 @observable 为现有的数据结构(如对象，数组和类实例)添加了可观察的功能，这样当数据发生变化的时候就可以继续进行下一步发应。
+
+```js
+class Stock  {
+    @observable price = 400;
+    @observable num = 1000;
+}
+```
+
+### 2、计算值 Computed
+
+Mobx 可通过 @computed 装饰器来定义某些状态发生变化时自动更新的值。
+
+```js
+class Stock {
+    @observable price = 400;
+    @observable num = 1000;
+
+    @computed get totalVal() {
+        return this.price * this.num;
+    }
+}
+```
+
+### 3、基于状态变化发生的反应（Reactions）
+
+Mobx 可使用 autorun 函数来创建一些自定义的反应,
+autorun 是个神奇的函数，被他包装过的方法，就会变为观察者函数，并且这里有一个很重要的特性，这个函数只会观察自己依赖到的设为 observable 的值。
+
+```js
+const stock700 = new Stock();
+stock700.price = 420;
+
+autorun(() => {
+    console.log("价格发生变化: " + stock700.price );
+    // 或者去干点啥
+    doSomething(stock700.price);
+})
+function doSomething (price) {
+    // 做点什么，更新 UI 什么的
+}
+```
+
+### 4、触发状态变化的动作 action
+
+在非严格模式下，mobx的状态可以在任何地方进行修改，但是在严格模式下，状态只能通过 action 来进行修改。
+
+> **个人强烈建议开启严格模式，这样可以防止数据被任意修改，降低程序的不确定性**
+
+```js
+class Stock {
+    @observable price = 400;
+    @observable num = 1000;
+
+    @computed get totalVal() {
+        return this.price * this.num;
+    }
+
+    @action
+    buyIn = (num) => {
+        this.num += num;
+    }
+
+    @action
+    sayOut = (num) => {
+        this.num -= num;
+    }
+}
+```
+
+---
+
+## 结合 React
+
+如 redux 有 react-redux 一样，mobx 也有一个 mobx-react，可与 react 结合。mobx-react 提供一个 @observer 装饰器， 当你的状态发生变化时，会自动（autorun）调用组件的 render 方法，更新 UI，这样就可以把你的(无状态函数)组件变成响应式组件。
+
+> 响应式组件，即当且仅当组件依赖的可观察数据发生改变时，组件才会自动响应，并重新渲染。
+
+### 1、observer
+
+通过 @observer 将 React 组件转化成响应式组件，它用 mobx.autorun 包装了组件的 render 函数以确保任何组件渲染中使用的数据变化时都可以强制刷新组件
+
+### 2、Provider
+
+Provider 组件用来包裹最外层组件节点，并且传入 store（通过）context 传递给后代组件。
+
+### 3、inject
+
+使用 @inject 给组件注入其需要的 store（利用 React context 机制）；
+
+---
+
+## 严格模式 useStrict
+
+在 mobx 中，可以有很多种方式去修改 state，mobx 并不对其做限制；
+但是如果使用了严格模式：
+
+```bash
+import { useStrict } from 'mobx';
+useStrict(true);
+```
+
+那么将会限制开发者只能通过 @action 来修改 state，这将会更有利于组织代码以及使数据流更清晰。
+
+---
+
+## 在 React 中使用 Mobx
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { observable, action } from 'mobx';
+import { Provider, observer, inject } from 'mobx-react';
+
+class CounterModel {
+    @observable
+    count = 0
+
+    @action
+    increase = () => {
+        this.count += 1;
+    }
+}
+
+const counter = new CounterModel();
+
+@inject('counter')
+@observer
+class App extends React.Component {
+    render() {
+        const { count, increase } = this.props.counter;
+
+        return (
+            <div>
+                <span>{count}</span>
+                <button onClick={increase}>increase</button>
+            </div>
+        )
+    }
+}
+
+ReactDOM.render(
+    <Provider counter={counter}>
+        <App />
+    </Provider>
+);
+```
+
+## 总结
+
+MobX 的理念是通过观察者模式对数据做出追踪处理，在对可观察属性的作出变更或者引用的时候，触发其依赖的监听函数，在 React 中既是在 @observer 中对组件进行数据更新并渲染到视图层面，其核心与开发模式和 Vue 非常相似。

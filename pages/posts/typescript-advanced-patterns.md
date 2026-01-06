@@ -1,7 +1,7 @@
 ---
 title: TypeScript 在 Vue 3 项目中的实践指南
 description: 从基础到实战，掌握 Vue 3 + TypeScript 开发的最佳实践
-date: 2024-11-20T10:00:00.000+00:00
+date: 2024-11-20
 lang: zh
 duration: 20min
 subtitle: 'Author: Kele'

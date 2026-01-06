@@ -1,7 +1,7 @@
 ---
 title: Electron 应用架构设计与进程通信
 description: 深入理解 Electron 多进程架构，掌握进程间通信的最佳实践
-date: 2024-12-05T10:00:00.000+00:00
+date: 2024-12-05
 lang: zh
 duration: 18min
 subtitle: "Author: Kele"

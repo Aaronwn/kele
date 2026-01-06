@@ -1,7 +1,7 @@
 ---
 title: Next.js 全栈开发模式与 API 设计
 description: 探索 Next.js App Router 全栈开发的最佳实践和 API 设计模式
-date: 2024-10-28T10:00:00.000+00:00
+date: 2024-10-28
 lang: zh
 duration: 18min
 subtitle: 'Author: Kele'

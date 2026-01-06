@@ -1,7 +1,7 @@
 ---
 title: Vue 3 vs React：设计理念与实现原理对比
 description: 深入对比 Vue 3 和 React 的核心语法、设计哲学与底层实现机制
-date: 2024-11-28T10:00:00.000+00:00
+date: 2024-11-28
 lang: zh
 duration: 22min
 subtitle: 'Author: Kele'

@@ -1,7 +1,7 @@
 ---
 title: React 性能优化实战：从理论到落地
 description: 系统总结 React 应用性能优化的方法论和实践经验
-date: 2024-12-15T10:00:00.000+00:00
+date: 2024-12-15
 lang: zh
 duration: 18min
 subtitle: 'Author: Kele'

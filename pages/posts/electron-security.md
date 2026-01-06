@@ -1,7 +1,7 @@
 ---
 title: Electron 应用安全加固指南
 description: 全面介绍 Electron 应用的安全风险和防护措施
-date: 2024-11-05T10:00:00.000+00:00
+date: 2024-11-05
 lang: zh
 duration: 15min
 subtitle: 'Author: Kele'

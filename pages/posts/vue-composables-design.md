@@ -1,7 +1,7 @@
 ---
 title: Vue 3 Composables 设计模式与最佳实践
 description: 深入探讨 Vue 3 组合式函数的设计原则、常见模式和工程实践
-date: 2024-12-20T10:00:00.000+00:00
+date: 2024-12-20
 lang: zh
 duration: 15min
 subtitle: 'Author: Kele'

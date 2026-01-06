@@ -1,7 +1,7 @@
 ---
 title: 前端工程化：构建高效的开发工作流
 description: 从代码规范到 CI/CD，打造现代化的前端工程体系
-date: 2024-10-20T10:00:00.000+00:00
+date: 2024-10-20
 lang: zh
 duration: 18min
 subtitle: 'Author: Kele'

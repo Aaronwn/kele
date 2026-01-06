@@ -1,7 +1,7 @@
 ---
 title: 微前端架构实践：从 0 到 1 的落地经验
 description: 分享企业级微前端架构的设计思路、技术选型和踩坑经验
-date: 2024-11-12T10:00:00.000+00:00
+date: 2024-11-12
 lang: zh
 duration: 20min
 subtitle: 'Author: Kele'
